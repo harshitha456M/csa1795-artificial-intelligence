@@ -1,32 +1,21 @@
-def isCryptSolution(crypt, solution):
-        newsol = list(zip(*reversed(solution)))
-        newstring1 = ''
-        total = 0
-        for word in range(len(crypt)-1):
-            subtotal, sol_total = 0, 0
-            newstring = ''
-            for char in crypt[word]:
-                idx = newsol[0].index(char)
-                newstring = newstring + newsol[1][idx]
-                subtotal = int(newstring)
-            total = total + subtotal
-        for char1 in crypt[-1]:
-            nidx = newsol[0].index(char1)
-            newstring1 = newstring1 + newsol[1][nidx]
-            sol_total = int(newstring1)
-        if total == sol_total and newstring[0] != '0':
-            return print('True')
-        elif total == 0 and newstring[0] == '0' and len(newstring) == 1:
-            return print('True')
-        else:
-            return print('False')
-crypt = ["SEND", "MORE", "MONEY"]
-solution = [['O', '0'],
-            ['M', '1'],
-            ['Y', '2'],
-            ['E', '5'],
-            ['N', '6'],
-            ['D', '7'],
-            ['R', '8'],
-            ['S', '9']]
-isCryptSolution(crypt, solution)
+def solutions():
+    # letters = ('s', 'e', 'n', 'd', 'm', 'o', 'r', 'y')
+    all_solutions = list()
+    for s in range(9, -1, -1):
+        for e in range(9, -1, -1):
+            for n in range(9, -1, -1):
+                for d in range(9, -1, -1):
+                    for m in range(9, 0, -1):
+                        for o in range(9, -1, -1):
+                            for r in range(9, -1, -1):
+                                for y in range(9, -1, -1):
+                                    if len(set([s, e, n, d, m, o, r, y])) == 8:
+                                        send = 1000 * s + 100 * e + 10 * n + d
+                                        more = 1000 * m + 100 * o + 10 * r + e
+                                        money = 10000 * m + 1000 * o + 100 * n + 10 * e + y
+
+                                        if send + more == money:
+                                            all_solutions.append((send, more, money))
+    return all_solutions
+
+print(solutions())
